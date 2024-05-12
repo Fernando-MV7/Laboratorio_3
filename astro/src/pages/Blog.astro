@@ -1,0 +1,26 @@
+---
+import { Fetch } from "../components/blogs/dto/Fetch";
+import {extractImageUrl } from "../components/blogs/dto/Fetch";
+
+const articles = await Fetch();
+---
+
+<html>
+  <head>
+    <title>Blog</title>
+  </head>
+  <body>
+    <h1>Blog</h1>
+    <ul>
+      {articles.map((article) => (
+        <li>
+          <h2>{article.attributes.title}</h2>
+          {article.attributes.content && (
+            <img src={extractImageUrl(article.attributes.content)} alt={article.attributes.title} />
+          )}
+          <p set:html={article.attributes.content} />
+        </li>
+      ))}
+    </ul>
+  </body>
+</html>
